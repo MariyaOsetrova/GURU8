@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def selenideVersion = "5.24.3",
+    junitVersion = "5.8.0"
+
+dependencies {
+    testImplementation( // нужны для написания кода
+            "com.codeborne:selenide:$selenideVersion",
+            "org.junit.jupiter:junit-jupiter:$junitVersion")
+    testRuntimeOnly( // не нужна во время написания кода, нужно для работы кода при запуске
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    )
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = 11
+    targetCompatibility = 11
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
